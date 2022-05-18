@@ -3,7 +3,7 @@
 // Trim удаляет лишние пробелы
 	$login = filter_var(trim($_POST['login']), 
 		FILTER_SANITIZE_STRING);
-	$name = filter_var(trim($_POST['name']), 
+	$name = filter_var(trim($_POST['full_name']),
 		FILTER_SANITIZE_STRING);
 	$password = filter_var(trim($_POST['password']),
 		FILTER_SANITIZE_STRING);
@@ -28,7 +28,7 @@
 
 //подключаемся к бд
 	$mysql = new mysqli('localhost', 'root', 'root', 'shop');
-	$mysql->query("INSERT INTO `employees` (`login`, `password`, `name`)
+	$mysql->query("INSERT INTO `employees` (`login`, `password`, `full_name`)
 	VALUES('$login', '$password', '$name')");
 
 	$mysql->close();

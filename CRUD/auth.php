@@ -20,7 +20,7 @@ $login = filter_var(trim($_POST['login']),
 		exit();
 	}
 
-	setcookie('employee', $employee['name'], time() + 3600, "/");
+	setcookie('employee', $employee['full_name'], time() + 3600, "/");
 
 	$mysql->close();
 

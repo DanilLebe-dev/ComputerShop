@@ -19,7 +19,7 @@
 				<h1>Зарегистрироваться</h1>
 					<form action="check.php" method="post">
 						<input type="text" class="form-control" name="login" id="login" placeholder="Введите логин"> <br>
-						<input type="text" class="form-control" name="name" id="name" placeholder="Введите имя"> <br>
+						<input type="text" class="form-control" name="full_name" id="full_name" placeholder="Введите имя"> <br>
 						<input type="password" class="form-control" name="password" id="password" placeholder="Введите пароль"> <br>
 						<button class="btn btn-success" type="submit">Зарегистрировать</button>
 						<input type="button" name="" class="btn btn-danger" value="На главную" onclick="history.back()">
