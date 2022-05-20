@@ -78,7 +78,7 @@ require_once 'config/connect.php';
                      * Делаем выборку всех строк из таблицы "products_groups"
                      */
 
-                    $products_groups = mysqli_query($connect, "SELECT * FROM `products_groups`");
+                    $products_groups = mysqli_query($connect, "SELECT * FROM `products_groups` order by products_groups.id desc limit 20;");
 
                     /*
                      * Преобразовываем полученные данные в нормальный массив

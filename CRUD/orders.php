@@ -91,7 +91,7 @@ require_once 'config/connect.php';
                      * Делаем выборку строк из таблиц
                      */
 
-                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit 10;");
+                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit 20;");
 
                     $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
                     $client =  mysqli_query($connect, "SELECT id, name From clients");

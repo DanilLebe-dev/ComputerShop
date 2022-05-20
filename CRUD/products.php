@@ -87,7 +87,7 @@ require_once 'config/connect.php';
                      * Делаем выборку всех строк из таблицы "products"
                      */
 
-                    $products = mysqli_query($connect, "SELECT products.id, products.name, price, col, description, products_groups.name FROM products, products_groups WHERE products.id_product_group = products_groups.id;");
+                    $products = mysqli_query($connect, "SELECT products.id, products.name, price, col, description, products_groups.name FROM products, products_groups WHERE products.id_product_group = products_groups.id order by products.id desc limit 20;");
 
                     $group =  mysqli_query($connect, "SELECT id, name From products_groups");
 

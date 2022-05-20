@@ -84,7 +84,7 @@ require_once 'config/connect.php';
                      * Делаем выборку всех строк из таблицы "employees"
                      */
 
-                    $employees = mysqli_query($connect, "SELECT * FROM `employees`");
+                    $employees = mysqli_query($connect, "SELECT * FROM `employees` order by employees.id desc limit 20;");
 
                     /*
                      * Преобразовываем полученные данные в нормальный массив
