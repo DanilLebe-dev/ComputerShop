@@ -13,7 +13,7 @@ require_once 'config/connect.php';
 <head>
     <meta charset="UTF-8">
     <title>Employees</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <style>
@@ -29,11 +29,6 @@ require_once 'config/connect.php';
     td {
         background: #b5b5b5;
     }
-
-
-
-
-
 
     .space {
         padding: 30px; /* Поля */
@@ -51,13 +46,11 @@ require_once 'config/connect.php';
         border: 2px solid #E81E25; /* Параметры рамки */
         margin-left: auto;
         margin-right: auto;
-
     }
 
     .space3 {
         margin: 0 auto;
         width: 200px;
-
     }
 
     .wrap
@@ -65,10 +58,6 @@ require_once 'config/connect.php';
         display: flex;
         flex-direction: row;
         justify-content: center;
-
-
-
-
     }
 
 
@@ -84,11 +73,9 @@ require_once 'config/connect.php';
                 <tr>
                     <th>ID</th>
                     <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Отчество</th>
-                    <th>email</th>
                     <th>Логин</th>
                     <th>Пароль</th>
+                    <th>Email</th>
                 </tr>
 
                 <?php
@@ -124,11 +111,8 @@ require_once 'config/connect.php';
                                 <td><?= $employee[2] ?></td>
                                 <td><?= $employee[3] ?></td>
                                 <td><?= $employee[4] ?></td>
-                                <td><?= $employee[5] ?></td>
-                                <td><?= $employee[6] ?></td>
-                                <td><a href="employee.php?id=<?= $employee[0] ?>">Промотр</a></td>
-                                <td><a href="update.php?id=<?= $employee[0] ?>">Изменить</a></td>
-                                <td><a style="color: red;" href="vendor/delete.php?id=<?= $employee[0] ?>">Удалить</a></td>
+                                <td><a href="update_employees.php?id=<?= $employee[0] ?>">Изменить</a></td>
+                                <td><a style="color: red;" href="vendor/delete_employees.php?id=<?= $employee[0] ?>">Удалить</a></td>
                             </tr>
                         <?php
                     }
@@ -141,26 +125,23 @@ require_once 'config/connect.php';
 
 
 
-        <form action="vendor/create.php" method="post" class='space'>
+        <form action="vendor/create_employees.php" method="post" class='space'>
 
-            <div class='space3'>
-                <h3>Добавить нового сотрудника</h3>
-                <p>Фамилия</p>
-                <input type="text" name="title">
-                <p>Имя</p>
-                <input type="number" name="price">
-                <p>Отчество</p>
-                <input type="number" name="price">
-                <p>Логин</p>
-                <input type="number" name="price">
-                <p>Пароль</p>
-                <input type="number" name="price">
-                <p>Email</p>
-                <input type="number" name="price"> <br> <br>
+            <div class='row align-items-start'>
+                <big><h3>Добавить нового сотрудника</h3>
+                <p>Имя
+                <input class="form-control" type="text" name="full_name"></p>
+                <p>Логин
+                <input class="form-control" type="text" name="login"></p>
+                <p>Пароль
+                <input class="form-control" type="text" name="password"></p>
+                <p>Email
+                <input class="form-control" type="text" name="email"></p>
 
 
 
-                <button type="submit">Добавить сотрудника
+                <button class="btn btn-success" type="submit">Добавить сотрудника</button>
+                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
             </div>
         </form>
     </div>

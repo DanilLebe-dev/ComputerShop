@@ -12,8 +12,8 @@ require_once 'config/connect.php';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Товары</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <style>
@@ -29,11 +29,6 @@ require_once 'config/connect.php';
     td {
         background: #b5b5b5;
     }
-
-
-
-
-
 
     .space {
         padding: 20px; /* Поля */
@@ -62,8 +57,12 @@ require_once 'config/connect.php';
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
 
-
+    .textarea
+    {
+        resize: none; /* Запрещаем изменять размер */
+        height: 100px;
 
     }
 
@@ -71,12 +70,8 @@ require_once 'config/connect.php';
 </style>
 <body>
     <div class='wrap'>
-
-
-
-
         <div class="border border-dark">
-            <table class='table table-striped' >
+            <table class='table table-striped'>
                 <tr>
                     <th>ID</th>
                     <th>Название</th>
@@ -92,13 +87,16 @@ require_once 'config/connect.php';
                      * Делаем выборку всех строк из таблицы "products"
                      */
 
-                    $products = mysqli_query($connect, "SELECT * FROM `products`");
+                    $products = mysqli_query($connect, "SELECT products.id, products.name, price, col, description, products_groups.name FROM products, products_groups WHERE products.id_product_group = products_groups.id;");
+
+                    $group =  mysqli_query($connect, "SELECT id, name From products_groups");
 
                     /*
                      * Преобразовываем полученные данные в нормальный массив
                      */
 
                     $products = mysqli_fetch_all($products);
+                    $group = mysqli_fetch_all($group);
 
                     /*
                      * Перебираем массив и рендерим HTML с данными из массива
@@ -119,9 +117,8 @@ require_once 'config/connect.php';
                                 <td><?= $product[3] ?></td>
                                 <td><?= $product[4] ?></td>
                                 <td><?= $product[5] ?></td>
-                                <td><a href="product.php?id=<?= $product[0] ?>">Промотр</a></td>
-                                <td><a href="update.php?id=<?= $product[0] ?>">Изменить</a></td>
-                                <td><a style="color: red;" href="vendor/delete.php?id=<?= $product[0] ?>">Удалить</a></td>
+                                <td><a href="update_products.php?id=<?= $product[0] ?>">Изменить</a></td>
+                                <td><a style="color: red;" href="vendor/delete_products.php?id=<?= $product[0] ?>">Удалить</a></td>
                             </tr>
                         <?php
                     }
@@ -130,28 +127,30 @@ require_once 'config/connect.php';
         </div>
 
 
+        <form action="vendor/create_products.php" method="post" class='space'>
 
+            <div class='row align-items-start'>
+                <big><h3>Добавить новый товар</h3>
+                <p>Название
+                <input class="form-control" type="text" name="name"></p>
+                <p>Цена
+                <input class="form-control" type="number" name="price"></p>
+                <p>Количество
+                <input class="form-control" type="number" name="col"></p>
+                <p>Описание
+                <textarea class="form-control textarea" name="description"></textarea></p>
+                <p>Товарная группа
+                <select class="form-select" class="form-select" name="group" id="country">
+                  <option value="" selected="selected"></option>
+                  <?php
+                     foreach($group as $val){
+                          echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                     }
+                   ?>
+                </select></p>
 
-
-
-        <form action="vendor/create.php" method="post" class='space'>
-
-            <div class='space3'>
-                <h3>Добавить новый товар</h3>
-                <p>Название</p>
-                <input type="text" name="title">
-                <p>Цена</p>
-                <input type="number" name="price">
-                <p>Количество</p>
-                <input type="number" name="price">
-                <p>Описание</p>
-                <textarea name="description"></textarea>
-                <p>Товарная группа</p>
-                <input type="number" name="price"> <br> <br>
-
-
-
-                <button type="submit">Добавить товар
+                <button class="btn btn-success" type="submit">Добавить товар</button>
+                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
             </div>
         </form>
     </div>

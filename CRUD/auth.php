@@ -4,8 +4,6 @@ $login = filter_var(trim($_POST['login']),
 	$password = filter_var(trim($_POST['password']),
 		FILTER_SANITIZE_STRING);
 
-	//$password = md5($password."soleniy4421");
-
 //подключаемся к бд
 	$mysql = new mysqli('localhost', 'root', 'root', 'shop');
 

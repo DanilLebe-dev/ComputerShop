@@ -2,3 +2,81 @@ form{
 	width: 1000px;
 
 }
+
+.btns {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 22px;
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.nav-item {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: blue;
+    margin: 5px;
+}
+
+.nav-link
+{
+    color: white;
+}
+
+.nav-item:hover
+{
+    background-color: white;
+
+}
+
+.wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.wrap:hover
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.space {
+        padding: 20px; /* Поля */
+        background: white; /* Цвет фона */
+        border: 2px solid black; /* Параметры рамки */
+        margin-left: 10px;
+        width: 400px;
+        text-align: center;
+}
+
+.space2 {
+    padding: 20px; /* Поля */
+    background: #E5D3BD; /* Цвет фона */
+    border: 2px solid #E81E25; /* Параметры рамки */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.space3 {
+    margin: 0 auto;
+    width: 200px;
+}
+
+.wrap
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.textarea
+{
+    resize: none; /* Запрещаем изменять размер */
+    height: 100px;
+}

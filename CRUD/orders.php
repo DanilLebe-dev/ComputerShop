@@ -12,10 +12,9 @@ require_once 'config/connect.php';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Orders</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Заказы</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-
 </head>
 <style>
     th, td {
@@ -30,11 +29,6 @@ require_once 'config/connect.php';
     td {
         background: #b5b5b5;
     }
-
-
-
-
-
 
     .space {
         padding: 20px; /* Поля */
@@ -51,7 +45,6 @@ require_once 'config/connect.php';
         border: 2px solid #E81E25; /* Параметры рамки */
         margin-left: auto;
         margin-right: auto;
-
     }
 
     .space3 {
@@ -64,9 +57,6 @@ require_once 'config/connect.php';
         display: flex;
         flex-direction: row;
         justify-content: center;
-
-
-
     }
 
 
@@ -74,7 +64,6 @@ require_once 'config/connect.php';
     {
         resize: none; /* Запрещаем изменять размер */
         height: 100px;
-
     }
 
 
@@ -82,8 +71,7 @@ require_once 'config/connect.php';
 <body>
     <div class='wrap'>
 
-        <div class="border border-dark"> 
-
+        <div class="border border-dark">
             <table class='table table-striped'>
                 <tr>
                     <th>ID</th>
@@ -103,16 +91,11 @@ require_once 'config/connect.php';
                      * Делаем выборку строк из таблиц
                      */
 
-                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id;");
+                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit 10;");
 
                     $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
                     $client =  mysqli_query($connect, "SELECT id, name From clients");
-                    $products =  mysqli_query($connect, "SELECT id, name From products");
-
-
-                    // $employee = array('vas', 'danbas');
-
-                    // $orders = mysqli_query($connect, "SELECT * FROM `orders`");
+                    $products =  mysqli_query($connect, "SELECT id, name, price, col From products");
 
 
 
@@ -153,7 +136,7 @@ require_once 'config/connect.php';
 
 
                                 <td><a href="update_orders.php?id=<?= $order[0] ?>">Изменить</a></td>
-                                <td><a style="color: red;" href="vendor/delete.php?id=<?= $order[0] ?>">Удалить</a></td>
+                                <td><a style="color: red;" href="vendor/delete_orders.php?id=<?= $order[0] ?>">Удалить</a></td>
                             </tr>
                         <?php
                     }
@@ -162,30 +145,28 @@ require_once 'config/connect.php';
         </div>
 
 
-
-
-
-
-        <form action="vendor/create.php" method="post" class='space'>
+        <form action="vendor/create_orders.php" method="post" class='space'>
 
             <div class='row align-items-start'>
                 <big><h3>Добавить новый заказ</h3>
                 <p>Товар
-                <select class="form-select" name="product" id="country">
+                <select onchange="summ1();" class="form-select" name="product" id="product">
                   <option value="" selected="selected"></option>
                   <?php
                      foreach($products as $val){
-                          echo '<option value='. $val[0] .' ' . $selected . ' >'. $val[1] .'</option>';
+                          echo '<option value='. $val[0] .' ' . $selected . ' >'. $val[1] . ' ($' . ($val[2]) . ')' . '</option>';
                      }
                    ?>
                 </select></p>
+
+
                 <p>Описание
                 <textarea name="description" class="form-control textarea"></textarea></p>
 
                 <p>Сумма
-                <input class="form-control" type="number" name="summ"></p>
+                <input class="form-control" type="number" name="summ" id="summ"></p>
                 <p>Количество
-                <input class="form-control" type="number" name="col" value=1></p>
+                <input onchange="summ1();" class="form-control" type="number" name="col" value=1 id="col"></p>
                 <p>Дата заказа
                 <input class="form-control" type="date" name="date_order" value="<?php echo date('Y-m-d'); ?>" /></p>
                 <p>Клиент
@@ -211,14 +192,31 @@ require_once 'config/connect.php';
                    ?>
                 </select></p>
 
-
-
-
-
                 <button class="btn btn-success" type="submit">Добавить заказ</button>
                 <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
+
             </div>
         </form>
     </div>
+
 </body>
+
+<script>
+    function summ1()
+    {
+        product = document.getElementById('product');
+        ans = product.options[product.selectedIndex].text;
+        price = ans.split(' ');
+        price1 = price[price.length-1];
+        price_product = parseInt(price1.substring(2, price1.length-1));
+
+        col = parseInt(document.getElementById('col').value);
+
+        res = col * price_product;
+
+        document.getElementById('summ').value = res;
+    }
+
+</script>
+
 </html>

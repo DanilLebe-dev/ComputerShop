@@ -16,16 +16,11 @@
      * Делаем выборку строки с полученным ID выше
      */
 
-    // $order = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id WHERE `id` = '$order_id'");
-
-    // $order = mysqli_query($connect, "SELECT * FROM `orders` WHERE `id` = '$order_id'");
-
     $order = mysqli_query($connect, "SELECT orders.id, products.name as product_name, products.description, summ, orders.col, date_order, clients.name as client_name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id and orders.id = '$order_id'");
 
     $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
     $client =  mysqli_query($connect, "SELECT id, name From clients");
     $products =  mysqli_query($connect, "SELECT id, name From products");
-
 
 
     /*
@@ -60,11 +55,6 @@
         background: #b5b5b5;
     }
 
-
-
-
-
-
     .space {
         padding: 20px; /* Поля */
         background: white; /* Цвет фона */
@@ -72,7 +62,7 @@
         margin-left: 10px;
         width: 400px;
         text-align: center;
-        text-size: 20px ;
+        text-size: 20px
     }
 
     .space2 {
@@ -93,9 +83,6 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-
-
-
     }
 
 
@@ -103,13 +90,12 @@
     {
         resize: none; /* Запрещаем изменять размер */
         height: 100px;
-
     }
 </style>
 
 <body>
 
-    <div class=" space space3">
+    <div class="space space3">
         <h3>Изменение заказа</h3>
         <form action="vendor/update_orders.php" method="post">
             <input type="hidden" name="id" value="<?= $order['id'] ?>">
@@ -141,7 +127,6 @@
             <p>Дата заказа
             <input class="form-control" type="date" name="date_order" value="<?= $order['date_order'] ?>"></p>
             <p>Клиент
-            <!-- <input type="text" name="id_client" value="<?= $order['client_name'] ?>"> -->
             <select class="form-select" name="client" id="country">
                       <!-- <option value="" selected="selected"></option> -->
                       <?php
@@ -180,35 +165,11 @@
                        ?>
 
                     </select></p>
-
-
-             <br> <br>
-            <button type="submit">Изменить</button>
-            <button type="button" onclick="window.history.back()">Назад</button>
+            <button class="btn btn-success" type="submit">Изменить</button>
+            <button class="btn btn-success" type="button" onclick="window.history.back()">Назад</button>
         </form>
 
     </div>
 
 </body>
 </html>
-
-
-
-<!--
-<input type="hidden" name="id" value="<?= $order['id'] ?>">
-        <p>Товар</p>
-        <input type="text" name="id_product" value="<?= $order['product_name'] ?>">
-        <p>Описание</p>
-        <textarea name="description"><?= $order['description'] ?></textarea>
-        <p>Сумма</p>
-        <input type="number" name="summ" value="<?= $order['summ'] ?>">
-        <p>Количество</p>
-        <input type="number" name="col" value="<?= $order['col'] ?>">
-        <p>Дата заказа</p>
-        <input type="date" name="date_order" value="<?= $order['date_order'] ?>">
-        <p>Клиент</p>
-        <input type="text" name="id_client" value="<?= $order['client_name'] ?>">
-        <p>Номер телефона</p>
-        <input type="number" name="phone_number" value="<?= $order['phone_number'] ?>">
-        <p>Сотрудник</p>
-        <input type="text" name="id_employee" value="<?= $order['name'] ?>"> -->

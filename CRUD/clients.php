@@ -13,11 +13,11 @@ require_once 'config/connect.php';
 <head>
     <meta charset="UTF-8">
     <title>Clients</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <style>
-   /* th, td {
+/*    th, td {
         padding: 10px;
     }
 
@@ -30,10 +30,6 @@ require_once 'config/connect.php';
         background: #b5b5b5;
     }
 */
-
-
-
-
 
     .space {
         padding: 20px; /* Поля */
@@ -52,32 +48,28 @@ require_once 'config/connect.php';
         margin-right: auto;
     }
 
-    /*.space3 {
+    .space3 {
         margin: 0 auto;
         width: 200px;
     }
-*/
+
     .wrap
     {
         display: flex;
         flex-direction: row;
         justify-content: center;
-
-
-
     }
 
 
 </style>
 <body>
     <div class='wrap'>
-         <div class="border border-dark">
+
+        <div class="border border-dark">
             <table class='table table-striped'>
                 <tr>
                     <th>ID</th>
-                    <th>Фамилия</th>
                     <th>Имя</th>
-                    <th>Отчество</th>
                     <th>Номер телефона</th>
                     <th>Email</th>
                 </tr>
@@ -113,11 +105,8 @@ require_once 'config/connect.php';
                                 <td><?= $client[1] ?></td>
                                 <td><?= $client[2] ?></td>
                                 <td><?= $client[3] ?></td>
-                                <td><?= $client[4] ?></td>
-                                <td><?= $client[5] ?></td>
-                                <td><a href="client.php?id=<?= $client[0] ?>">Промотр</a></td>
-                                <td><a href="update.php?id=<?= $client[0] ?>">Изменить</a></td>
-                                <td><a style="color: red;" href="vendor/delete.php?id=<?= $client[0] ?>">Удалить</a></td>
+                                <td><a href="update_clients.php?id=<?= $client[0] ?>">Изменить</a></td>
+                                <td><a style="color: red;" href="vendor/delete_clients.php?id=<?= $client[0] ?>">Удалить</a></td>
                             </tr>
                         <?php
                     }
@@ -130,24 +119,20 @@ require_once 'config/connect.php';
 
 
 
-        <form action="vendor/create.php" method="post" class='space'>
+        <form action="vendor/create_clients.php" method="post" class='space'>
 
-            <div class='space3'>
-                <h3>Добавить нового клиента</h3>
-                <p>Фамилия</p>
-                <input type="text" name="title">
-                <p>Имя</p>
-                <input type="number" name="price">
-                <p>Отчество</p>
-                <input type="number" name="price">
-                <p>Номер телефона</p>
-                <input type="number" name="price">
-                <p>Email</p>
-                <input type="number" name="price"> <br> <br>
+            <div class='row align-items-start'>
+                <big><h3>Добавить нового клиента</h3>
+                <p>Имя<br>
+                <input class="form-control" type="text" name="name"></p>
+                <p>Номер телефона<br>
+                <input class="form-control" type="number" name="phone_number"></p>
+                <p>Email<br>
+                <input class="form-control" type="text" name="email"></p>
 
 
-
-                <button type="submit">Добавить клиента
+                <button class="btn btn-success" type="submit">Добавить клиента</button>
+                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
             </div>
         </form>
     </div>

@@ -12,9 +12,10 @@ require_once 'config/connect.php';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>products_groups</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Товарные группы</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+
 </head>
 <style>
     th, td {
@@ -30,17 +31,13 @@ require_once 'config/connect.php';
         background: #b5b5b5;
     }
 
-
-
-
-
-
     .space {
         padding: 20px; /* Поля */
         background: white; /* Цвет фона */
         border: 2px solid black; /* Параметры рамки */
         margin-left: 10px;
         width: 400px;
+        text-align: center;
     }
 
     .space2 {
@@ -61,18 +58,12 @@ require_once 'config/connect.php';
         display: flex;
         flex-direction: row;
         justify-content: center;
-
-
-
     }
 
 
 </style>
 <body>
     <div class='wrap'>
-
-
-
 
         <div class="border border-dark">
             <table class='table table-striped'>
@@ -108,9 +99,8 @@ require_once 'config/connect.php';
                                 <td><?= $group[0] ?></td>
                                 <td><?= $group[1] ?></td>
 
-                                <td><a href="group.php?id=<?= $group[0] ?>">Промотр</a></td>
-                                <td><a href="update.php?id=<?= $group[0] ?>">Изменить</a></td>
-                                <td><a style="color: red;" href="vendor/delete.php?id=<?= $group[0] ?>">Удалить</a></td>
+                                <td><a href="update_groups.php?id=<?= $group[0] ?>">Изменить</a></td>
+                                <td><a style="color: red;" href="vendor/delete_groups.php?id=<?= $group[0] ?>">Удалить</a></td>
                             </tr>
                         <?php
                     }
@@ -119,20 +109,15 @@ require_once 'config/connect.php';
         </div>
 
 
+        <form action="vendor/create_groups.php" method="post" class='space'>
 
+            <div class='row align-items-start'>
+                <big><h3>Добавить новую группу</h3>
+                <p>Название
+                <input class="form-control" type="text" name="name"></p>
 
-
-
-        <form action="vendor/create.php" method="post" class='space'>
-
-            <div class='space3'>
-                <h3>Добавить новую группу</h3>
-                <p>Название</p>
-                <input type="text" name="title"><br> <br>
-
-
-
-                <button type="submit">Добавить группу
+                <button class="btn btn-success" type="submit">Добавить группу</button>
+                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
             </div>
         </form>
     </div>
