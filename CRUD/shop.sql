@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 13 2022 г., 23:21
+-- Время создания: Май 21 2022 г., 00:11
 -- Версия сервера: 5.6.51-log
 -- Версия PHP: 7.3.33
 
@@ -29,9 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL,
-  `surname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `patronymic` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone_number` int(11) DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -40,8 +38,10 @@ CREATE TABLE `clients` (
 -- Дамп данных таблицы `clients`
 --
 
-INSERT INTO `clients` (`id`, `surname`, `name`, `patronymic`, `phone_number`, `email`) VALUES
-(1, 'Иванов', 'Иван', 'Павлович', 888, 'sas@si.ua');
+INSERT INTO `clients` (`id`, `name`, `phone_number`, `email`) VALUES
+(1, 'Иван Ленин', 8881, 'sas1@si.ua'),
+(2, 'Федя', 78945, 'esa@ss.ew'),
+(4, 'Александр Юдин', 1, 'sashayudin2001@yandex.ru');
 
 -- --------------------------------------------------------
 
@@ -71,9 +71,7 @@ INSERT INTO `comments` (`id`, `product_id`, `body`) VALUES
 
 CREATE TABLE `employees` (
   `id` int(11) NOT NULL,
-  `surname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `patronymic` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `full_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `login` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -83,9 +81,12 @@ CREATE TABLE `employees` (
 -- Дамп данных таблицы `employees`
 --
 
-INSERT INTO `employees` (`id`, `surname`, `name`, `patronymic`, `login`, `password`, `email`) VALUES
-(1, 'Чач', 'Ян', 'Админович', 'admin', 'admin', 'admin@mail.ru'),
-(2, NULL, 'dadada', NULL, 'dadada', 'dadada', NULL);
+INSERT INTO `employees` (`id`, `full_name`, `login`, `password`, `email`) VALUES
+(1, 'Ян', 'admin', 'admin', 'admin@mail.ru'),
+(2, 'dadada', 'dadada', 'dadada', NULL),
+(3, 'Вася', 'vasvas', 'vasvas', 'vasvas@vas.vas'),
+(5, 'Коля', 'lololo', 'lololo', 'lololo@da.net'),
+(6, 'Гася Сигара', 'kokoko', 'kokoko', 'kokoko@s.ru');
 
 -- --------------------------------------------------------
 
@@ -110,8 +111,13 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `id_product`, `description`, `summ`, `col`, `date_order`, `id_client`, `phone_number`, `id_employee`) VALUES
-(1, 7, NULL, 2000, 1, '2022-05-04', 1, 888, 1),
-(2, 3, '1212', 122222, 12, '2022-05-10', 1, 122, 1);
+(2, 3, '1212', 122222, 12, '2022-05-10', 1, 122, 1),
+(3, 2, '123', 222, 2, '0000-00-00', 1, 888, 1),
+(23, 3, 'opisanie', 11, 11, '0000-00-00', 1, 11, 1),
+(25, 3, 'dea', 122, 1, '2022-05-17', 1, 444, 3),
+(26, 3, 'opisanie', 122, 1, '2022-05-17', 2, 444, 3),
+(28, 2, '1', 1, 1, '2021-10-13', 1, 211, 2),
+(34, 3, 'ew', 51000, 3, '2022-05-20', 1, 12321, 1);
 
 -- --------------------------------------------------------
 
@@ -133,10 +139,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `col`, `description`, `id_product_group`) VALUES
-(2, 'product2', 2000, 5, '123', 2),
-(3, 'product3', 3000, 6, 'opisanie', 2),
-(5, 'dsaod', 1232, 10, 'lol', 2),
-(7, 'wqe', 123, 2, 'dawdawd', 2);
+(2, 'GTX 980', 2000, 5, '123', 11),
+(3, 'GTX 970', 17000, 1, 'cool', 11);
 
 -- --------------------------------------------------------
 
@@ -154,7 +158,9 @@ CREATE TABLE `products_groups` (
 --
 
 INSERT INTO `products_groups` (`id`, `name`) VALUES
-(2, 'Процессоры');
+(2, 'Процессоры'),
+(11, 'Видеокарты'),
+(12, 'ОЗУ');
 
 --
 -- Индексы сохранённых таблиц
@@ -207,7 +213,7 @@ ALTER TABLE `products_groups`
 -- AUTO_INCREMENT для таблицы `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `comments`
@@ -219,25 +225,25 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `products_groups`
 --
 ALTER TABLE `products_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
