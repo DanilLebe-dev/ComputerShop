@@ -38,10 +38,11 @@ require_once 'config/connect.php';
 
     .space {
         padding: 20px; /* Поля */
-        background: #E5D3BD; /* Цвет фона */
-        border: 2px solid #E81E25; /* Параметры рамки */
+        background: white; /* Цвет фона */
+        border: 2px solid black; /* Параметры рамки */
         margin-left: 10px;
         width: 400px;
+        text-align: center;
     }
 
     .space2 {
@@ -50,6 +51,7 @@ require_once 'config/connect.php';
         border: 2px solid #E81E25; /* Параметры рамки */
         margin-left: auto;
         margin-right: auto;
+
     }
 
     .space3 {
@@ -68,12 +70,21 @@ require_once 'config/connect.php';
     }
 
 
+    .textarea
+    {
+        resize: none; /* Запрещаем изменять размер */
+        height: 100px;
+
+    }
+
+
 </style>
 <body>
     <div class='wrap'>
 
-        <div>
-            <table class='space'>
+        <div class="border border-dark"> 
+
+            <table class='table table-striped'>
                 <tr>
                     <th>ID</th>
                     <th>Товар</th>
@@ -157,31 +168,28 @@ require_once 'config/connect.php';
 
         <form action="vendor/create.php" method="post" class='space'>
 
-            <div class='space3'>
-                <h3>Добавить новый заказ</h3>
-                <p>Товар</p>
-                <!-- <input class="form-control" type="text" name="title"></p> -->
-                <select name="product" id="country">
+            <div class='row align-items-start'>
+                <big><h3>Добавить новый заказ</h3>
+                <p>Товар
+                <select class="form-select" name="product" id="country">
                   <option value="" selected="selected"></option>
                   <?php
                      foreach($products as $val){
-                         // $selected = ($employee['full_name'] == 'CAMEROON') ? 'selected="selected"' : '';
                           echo '<option value='. $val[0] .' ' . $selected . ' >'. $val[1] .'</option>';
                      }
                    ?>
-                </select>
+                </select></p>
                 <p>Описание
-                <textarea name="description" class="form-control"></textarea>
+                <textarea name="description" class="form-control textarea"></textarea></p>
 
-                <p>Сумма</p>
+                <p>Сумма
                 <input class="form-control" type="number" name="summ"></p>
-                <p>Количество</p>
-                <input class="form-control" type="number" name="col"></p>
-                <p>Дата заказа</p>
-                <input class="form-control" type="date" name="date_order">
-                <p>Клиент</p>
-                <!-- <input class="form-control" type="number" name="client"></p> -->
-                <select name="client" id="country">
+                <p>Количество
+                <input class="form-control" type="number" name="col" value=1></p>
+                <p>Дата заказа
+                <input class="form-control" type="date" name="date_order" value="<?php echo date('Y-m-d'); ?>" /></p>
+                <p>Клиент
+                <select class="form-select" name="client" id="country">
                   <option value="" selected="selected"></option>
                   <?php
                      foreach($client as $val){
@@ -189,34 +197,26 @@ require_once 'config/connect.php';
                           echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
                      }
                    ?>
-                </select>
+                </select></p>
                 <p>Номер телефона
                 <input class="form-control" type="number" name="phone_number"></p>
-                <!-- <p>Сотрудник
-                <input class="form-control" type="number" name="employee"></p><br> -->
 
-                <p>Сотрудник</p>
-                <select name="employee" id="country">
+                <p>Сотрудник
+                <select class="form-select" name="employee" id="country">
                   <option value="" selected="selected"></option>
                   <?php
                      foreach($employee as $val){
-                         // $selected = ($employee['full_name'] == 'CAMEROON') ? 'selected="selected"' : '';
                           echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
                      }
                    ?>
-                </select>
+                </select></p>
 
 
-     <!--  <?php
-        foreach($employee as $value)
-        {
-        echo $value;
-        }
-        ?> -->
 
 
 
                 <button class="btn btn-success" type="submit">Добавить заказ</button>
+                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
             </div>
         </form>
     </div>

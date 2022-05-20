@@ -14,6 +14,7 @@ require_once 'config/connect.php';
     <meta charset="UTF-8">
     <title>Employees</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <style>
     th, td {
@@ -35,11 +36,13 @@ require_once 'config/connect.php';
 
 
     .space {
-        padding: 20px; /* Поля */
-        background: #E5D3BD; /* Цвет фона */
-        border: 2px solid #E81E25; /* Параметры рамки */
-        margin-left: 10px;
+        padding: 30px; /* Поля */
+        background: white; /* Цвет фона */
+        border: 2px solid black; /* Параметры рамки */
+        margin-left: 20px;
         width: 400px;
+        margin-middle: auto;
+        text-align: center;
     }
 
     .space2 {
@@ -48,11 +51,13 @@ require_once 'config/connect.php';
         border: 2px solid #E81E25; /* Параметры рамки */
         margin-left: auto;
         margin-right: auto;
+
     }
 
     .space3 {
         margin: 0 auto;
         width: 200px;
+
     }
 
     .wrap
@@ -60,6 +65,7 @@ require_once 'config/connect.php';
         display: flex;
         flex-direction: row;
         justify-content: center;
+
 
 
 
@@ -73,16 +79,16 @@ require_once 'config/connect.php';
 
 
 
-        <div>
-            <table class='space'>
+        <div class="border border-dark">
+            <table class='table table-striped'>
                 <tr>
                     <th>ID</th>
-                    <th>Фамилия</th>
                     <th>Имя</th>
+                    <th>Фамилия</th>
                     <th>Отчество</th>
+                    <th>email</th>
                     <th>Логин</th>
                     <th>Пароль</th>
-                    <th>Email</th>
                 </tr>
 
                 <?php

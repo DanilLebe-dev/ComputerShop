@@ -14,9 +14,10 @@ require_once 'config/connect.php';
     <meta charset="UTF-8">
     <title>Clients</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <style>
-    th, td {
+   /* th, td {
         padding: 10px;
     }
 
@@ -28,7 +29,7 @@ require_once 'config/connect.php';
     td {
         background: #b5b5b5;
     }
-
+*/
 
 
 
@@ -36,10 +37,11 @@ require_once 'config/connect.php';
 
     .space {
         padding: 20px; /* Поля */
-        background: #E5D3BD; /* Цвет фона */
-        border: 2px solid #E81E25; /* Параметры рамки */
+        background: white; /* Цвет фона */
+        border: 2px solid black; /* Параметры рамки */
         margin-left: 10px;
         width: 400px;
+        text-align: center;
     }
 
     .space2 {
@@ -50,11 +52,11 @@ require_once 'config/connect.php';
         margin-right: auto;
     }
 
-    .space3 {
+    /*.space3 {
         margin: 0 auto;
         width: 200px;
     }
-
+*/
     .wrap
     {
         display: flex;
@@ -69,12 +71,8 @@ require_once 'config/connect.php';
 </style>
 <body>
     <div class='wrap'>
-
-
-
-
-        <div>
-            <table class='space'>
+         <div class="border border-dark">
+            <table class='table table-striped'>
                 <tr>
                     <th>ID</th>
                     <th>Фамилия</th>
