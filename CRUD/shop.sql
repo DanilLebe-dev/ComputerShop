@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 21 2022 г., 00:11
--- Версия сервера: 5.6.51-log
--- Версия PHP: 7.3.33
+-- Время создания: Май 21 2022 г., 09:37
+-- Версия сервера: 5.6.51
+-- Версия PHP: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_number` int(11) DEFAULT NULL,
+  `phone_number` bigint(15) DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -39,29 +39,9 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `phone_number`, `email`) VALUES
-(1, 'Иван Ленин', 8881, 'sas1@si.ua'),
-(2, 'Федя', 78945, 'esa@ss.ew'),
-(4, 'Александр Юдин', 1, 'sashayudin2001@yandex.ru');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `comments`
---
-
-CREATE TABLE `comments` (
-  `id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `comments`
---
-
-INSERT INTO `comments` (`id`, `product_id`, `body`) VALUES
-(1, 5, 'анекдот'),
-(2, 5, 'амд тащи!');
+(1, 'Иван ', 2147483647, 'Ivan123@mail.ru'),
+(2, 'Федор', 89224814261, 'fedor.aa@mail.ru'),
+(5, 'Данил', 89923106723, '21danik11@mail.ru');
 
 -- --------------------------------------------------------
 
@@ -83,10 +63,11 @@ CREATE TABLE `employees` (
 
 INSERT INTO `employees` (`id`, `full_name`, `login`, `password`, `email`) VALUES
 (1, 'Ян', 'admin', 'admin', 'admin@mail.ru'),
-(2, 'dadada', 'dadada', 'dadada', NULL),
-(3, 'Вася', 'vasvas', 'vasvas', 'vasvas@vas.vas'),
-(5, 'Коля', 'lololo', 'lololo', 'lololo@da.net'),
-(6, 'Гася Сигара', 'kokoko', 'kokoko', 'kokoko@s.ru');
+(2, 'Дима', 'log', 'pass', 'dima0072mail.ru'),
+(3, 'Вася', 'vasvas', 'vasvas', 'vasvas@mail.ru'),
+(5, 'Коля', 'lololo', 'lololo', 'lololo@mail.ru'),
+(6, 'Петя', 'kokoko', 'kokoko', 'kokoko@mail.ru'),
+(7, 'Данил', 'Danil', '21danik11', NULL);
 
 -- --------------------------------------------------------
 
@@ -102,7 +83,7 @@ CREATE TABLE `orders` (
   `col` int(11) DEFAULT NULL,
   `date_order` date DEFAULT NULL,
   `id_client` int(11) DEFAULT NULL,
-  `phone_number` int(11) DEFAULT NULL,
+  `phone_number` bigint(15) DEFAULT NULL,
   `id_employee` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -116,8 +97,8 @@ INSERT INTO `orders` (`id`, `id_product`, `description`, `summ`, `col`, `date_or
 (23, 3, 'opisanie', 11, 11, '0000-00-00', 1, 11, 1),
 (25, 3, 'dea', 122, 1, '2022-05-17', 1, 444, 3),
 (26, 3, 'opisanie', 122, 1, '2022-05-17', 2, 444, 3),
-(28, 2, '1', 1, 1, '2021-10-13', 1, 211, 2),
-(34, 3, 'ew', 51000, 3, '2022-05-20', 1, 12321, 1);
+(34, 3, 'Видеокарта Geforce GTX 970 4gb', 51000, 3, '2022-05-20', 1, 89224525882, 1),
+(35, 2, 'Видеокарта Geforce GTX 980 6gb', 4000, 2, '2022-05-21', 5, 89923106723, 3);
 
 -- --------------------------------------------------------
 
@@ -139,8 +120,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `col`, `description`, `id_product_group`) VALUES
-(2, 'GTX 980', 2000, 5, '123', 11),
-(3, 'GTX 970', 17000, 1, 'cool', 11);
+(2, 'GTX 980', 2000, 5, 'Видеокарта Geforce GTX 980 6gb', 11),
+(3, 'GTX 970', 1500, 1, 'Видеокарта Geforce GTX 970 4gb', 11),
+(4, 'GTX 1060', 3500, 2, 'Видеокарта Geforce GTX 1060', 11),
+(5, 'IntelCore i5 9700k', 900, 1, 'Процессор Интел', 2);
 
 -- --------------------------------------------------------
 
@@ -160,7 +143,9 @@ CREATE TABLE `products_groups` (
 INSERT INTO `products_groups` (`id`, `name`) VALUES
 (2, 'Процессоры'),
 (11, 'Видеокарты'),
-(12, 'ОЗУ');
+(12, 'ОЗУ'),
+(13, 'Блоки питания'),
+(14, 'Мониторы');
 
 --
 -- Индексы сохранённых таблиц
@@ -170,12 +155,6 @@ INSERT INTO `products_groups` (`id`, `name`) VALUES
 -- Индексы таблицы `clients`
 --
 ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `comments`
---
-ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -213,37 +192,31 @@ ALTER TABLE `products_groups`
 -- AUTO_INCREMENT для таблицы `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT для таблицы `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `products_groups`
 --
 ALTER TABLE `products_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
