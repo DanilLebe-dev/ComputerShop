@@ -69,6 +69,10 @@ require_once 'config/connect.php';
 
 </style>
 <body>
+
+
+      <hr style="margin-top: 80px;">
+    
     <div class='wrap'>
         <div class="border border-dark">
             <table class='table table-striped'>
@@ -127,7 +131,7 @@ require_once 'config/connect.php';
         </div>
 
 
-        <form action="vendor/create_products.php" method="post" class='space'>
+        <!-- <form action="vendor/create_products.php" method="post" class='space'>
 
             <div class='row align-items-start'>
                 <big><h3>Добавить новый товар</h3>
@@ -152,7 +156,9 @@ require_once 'config/connect.php';
                 <button class="btn btn-success" type="submit">Добавить товар</button>
                 <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
             </div>
-        </form>
+        </form> -->
     </div>
+    <a href="newproducts.php"><button  class="btn btn-outline-success" type="btn">Добавить заказ</button></a>
+    <a href="index1.php"><button  class="btn btn-outline-success" type="btn">Назад</button></a>
 </body>
 </html>

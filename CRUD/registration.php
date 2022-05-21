@@ -8,6 +8,16 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
 </head>
+<style>
+	.col
+	{
+		text-align: center;
+		margin-left: 80px;
+		padding: 20px;
+		font-size: small;
+
+	}
+</style>
 <body>
 	<div class="container mt-4">
 		<?php 

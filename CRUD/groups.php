@@ -63,9 +63,14 @@ require_once 'config/connect.php';
 
 </style>
 <body>
-    <div class='wrap'>
 
-        <div class="border border-dark">
+
+
+  <hr style="margin-top: 80px;">
+
+    <div style="flex-direction: column;" class='wrap'>
+
+        <div>
             <table class='table table-striped'>
                 <tr>
                     <th>ID</th>
@@ -107,19 +112,9 @@ require_once 'config/connect.php';
                 ?>
             </table>
         </div>
-
-
-        <form action="vendor/create_groups.php" method="post" class='space'>
-
-            <div class='row align-items-start'>
-                <big><h3>Добавить новую группу</h3>
-                <p>Название
-                <input class="form-control" type="text" name="name"></p>
-
-                <button class="btn btn-success" type="submit">Добавить группу</button>
-                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
-            </div>
-        </form>
+        <div>
+    <a href="newgroups.php"><button  class="btn btn-outline-success" type="btn">Добавить заказ</button></a>
+    <a href="index1.php"><button  class="btn btn-outline-success" type="btn">Назад</button></a>
     </div>
 </body>
 </html>

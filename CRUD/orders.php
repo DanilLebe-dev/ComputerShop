@@ -17,6 +17,12 @@ require_once 'config/connect.php';
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <style>
+
+    .sq
+    {
+        bottom: 200px;
+
+    }
     th, td {
         padding: 10px;
     }
@@ -69,10 +75,14 @@ require_once 'config/connect.php';
 
 </style>
 <body>
-    <div class='wrap'>
 
-        <div class="border border-dark">
-            <table class='table table-striped'>
+
+      <hr style="margin-top: 80px;">
+    
+    <div style="flex-direction: column;" class='wrap'>
+
+        <div name ="sq">
+            <table style="width: 100%;"class='table table-striped'>
                 <tr>
                     <th>ID</th>
                     <th>Товар</th>
@@ -142,64 +152,15 @@ require_once 'config/connect.php';
                     }
                 ?>
             </table>
+              
+                   
+                
         </div>
-
-
-        <form action="vendor/create_orders.php" method="post" class='space'>
-
-            <div class='row align-items-start'>
-                <big><h3>Добавить новый заказ</h3>
-                <p>Товар
-                <select onchange="summ1();" class="form-select" name="product" id="product">
-                  <option value="" selected="selected"></option>
-                  <?php
-                     foreach($products as $val){
-                          echo '<option value='. $val[0] .' ' . $selected . ' >'. $val[1] . ' ($' . ($val[2]) . ')' . '</option>';
-                     }
-                   ?>
-                </select></p>
-
-
-                <p>Описание
-                <textarea name="description" class="form-control textarea"></textarea></p>
-
-                <p>Сумма
-                <input class="form-control" type="number" name="summ" id="summ"></p>
-                <p>Количество
-                <input onchange="summ1();" class="form-control" type="number" name="col" value=1 id="col"></p>
-                <p>Дата заказа
-                <input class="form-control" type="date" name="date_order" value="<?php echo date('Y-m-d'); ?>" /></p>
-                <p>Клиент
-                <select class="form-select" name="client" id="country">
-                  <option value="" selected="selected"></option>
-                  <?php
-                     foreach($client as $val){
-
-                          echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                     }
-                   ?>
-                </select></p>
-                <p>Номер телефона
-                <input class="form-control" type="number" name="phone_number"></p>
-
-                <p>Сотрудник
-                <select class="form-select" name="employee" id="country">
-                  <option value="" selected="selected"></option>
-                  <?php
-                     foreach($employee as $val){
-                          echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                     }
-                   ?>
-                </select></p>
-
-                <button class="btn btn-success" type="submit">Добавить заказ</button>
-                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
-
-            </div>
-        </form>
+            
     </div>
-
-</body>
+    <a href="neworder.php"><button  class="btn btn-outline-success" type="btn">Добавить заказ</button></a>
+    <a href="index1.php"><button  class="btn btn-outline-success" type="btn">Назад</button></a>
+</body> 
 
 <script>
     function summ1()

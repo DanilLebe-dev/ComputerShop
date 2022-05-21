@@ -8,6 +8,16 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
 </head>
+<style>
+	.row
+	{
+		text-align: center;
+		margin-left: 80px;
+		padding: 20px;
+		font-size: small;
+
+	}
+</style>
 <body>
 	<div class="container mt-4">
 		<?php 
@@ -22,6 +32,8 @@
 						<input type="password" class="form-control" name="password" id="password" placeholder="Введите пароль"> <br>
 						<button class="btn btn-success" type="submit">Авторизоваться</button>
 					</form>
+				
+
 					<p>
 						У вас нет аккаунта? - <a href="registration.php">Зарегистрируйтесь!</a>
 					</p>
@@ -29,8 +41,7 @@
 			</div>	
 		</div>
 		<?php else: ?>
-			<!-- <p>Привет <?=$_COOKIE['employee']?>. Чтобы выйти нажмите <a href="/exit.php">здесь</a>.</p> -->
-			<p>Привет <?=$_COOKIE['employee']?>. <a href="/index1.php">Приступить к работе</a>.</p>
+			
 		<?php endif;?>
 	</div>
 </body>

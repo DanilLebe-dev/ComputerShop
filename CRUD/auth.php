@@ -14,7 +14,7 @@ $login = filter_var(trim($_POST['login']),
 	
 	if(count($employee) == 0)
 	{
-		echo "Такой пользователь не найден!";
+		echo "Неверный логин или пароль!";
 		exit();
 	}
 
@@ -22,5 +22,5 @@ $login = filter_var(trim($_POST['login']),
 
 	$mysql->close();
 
-	header('Location:/');
+	header('Location:/index1.php');
 ?>
