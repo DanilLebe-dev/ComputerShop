@@ -15,13 +15,14 @@ form{
     text-align:  center;
 }
 .btns {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     border-radius: 10px;
     padding: 10px;
     font-size: 22px;
     width: 600px;
     margin: 0 auto;
     margin-top: 8%;
+    margin-left: 34%;
 
 }
 
@@ -36,6 +37,7 @@ form{
 .nav-link.active
 {
     color: white;
+    text-align: center;
 }
 
 .nav-link
