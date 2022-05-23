@@ -1,4 +1,8 @@
 <?php
+
+session_start();
+
+
 $login = filter_var(trim($_POST['login']), 
 		FILTER_SANITIZE_STRING);
 	$password = filter_var(trim($_POST['password']),
@@ -12,15 +16,25 @@ $login = filter_var(trim($_POST['login']),
 	//fetch_assoc - функция поможет все выбранные данные из бд сконвертировать в  привычный массив
 	$employee = $result -> fetch_assoc();
 	
-	if(count($employee) == 0)
+	if(!$employee)
+
 	{
-		echo "Неверный логин или пароль!";
+		$_SESSION['message'] = 'Неверный логин или пароль :(';
+
+		header('Location:/index.php');
+
 		exit();
 	}
 
 	setcookie('employee', $employee['full_name'], time() + 3600, "/");
 
+
+	setcookie('prava', $employee['is_admin'], time() + 3600, "/");
+	
 	$mysql->close();
+
 
 	header('Location:/index1.php');
 ?>
+
+

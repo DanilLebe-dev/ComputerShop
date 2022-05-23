@@ -37,6 +37,9 @@
 				</div>
 			</div>	
 		</div>
+	<!-- 	<?php else: ?>
+			<p>Привет <?=$_COOKIE['employee']?>. Чтобы выйти нажмите <a href="/exit.php">здесь</a>.</p>
+		<?php endif;?> -->
 	</div>
 </body>
 </html>

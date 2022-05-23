@@ -16,11 +16,14 @@ require_once 'config/connect.php';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
-<div class="h1" align="right" >
+
+<div class="h1" align="right" style="margin-right: 70px;">
   <?php
 echo ($_COOKIE['employee']);
 ?>
+<a href="index.php"><button  style="margin-left: 20px;"class="btn btn-danger" type="btn">Выйти</button></a>
 </div>
+
 <style>
     th, td {
         padding: 10px;

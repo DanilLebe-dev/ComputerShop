@@ -15,10 +15,22 @@ require_once 'config/connect.php';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
+<script>
+  function admin(role)
+  {
+    if(role != '1')
+    {
+      item=document.getElementById('foradmin');
+      item.remove();
+    }
+    
+
+  }
+
+</script>
 
 
-
-<body>
+<body onload="admin(<?=$_COOKIE['prava']; ?>);">
 
 
   <!--  <div><img src="\config\qwer.png" style="width:100% ; position : relative;"></div> -->
@@ -79,10 +91,11 @@ background-size: 100%;
 </div>
 
 
-<div class="h1" align="right" >
+<div class="h1" align="right" style="margin-right: 70px;">
   <?php
 echo ($_COOKIE['employee']);
 ?>
+<a href="index.php"><button  style="margin-left: 20px;"class="btn btn-danger" type="btn">Выйти</button></a>
 </div>
 
 
@@ -112,11 +125,8 @@ echo ($_COOKIE['employee']);
           <li class="nav-item">
             <a class="nav-link active" href="orders.php?id=<?= $product[0] ?>">Заказы</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="foradmin">
             <a class="nav-link active" href="employees.php?id=<?= $product[0] ?>">Сотрудники</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="exit.php?id=<?= $product[0] ?>">Выйти</a>
           </li>
         </ul>
     </div>
