@@ -20,57 +20,76 @@ require_once 'config/connect.php';
 
 <body>
 
+
   <!--  <div><img src="\config\qwer.png" style="width:100% ; position : relative;"></div> -->
 
-
+<!-- background: url(config/94lQI.png) no-repeat;
+background-size: 100%; -->
 <div>
+
  <style>
-
-body 
-{
-background: url(config/321.jpg) no-repeat;
+  body
+  {
+    background: url(config/94lQI.png) no-repeat;
 background-size: 100%;
-}
-
+  }
   .header-h1 {
     position: relative;
     margin-bottom: .5rem;
-    text-align: center;
   }
-  .header-h1 h1 {
-    display: inline-block;
-    background: #fff;
-    margin-bottom: 0;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    padding: .5rem 1.5rem;
-    border: .125rem solid #6a1b9a;
-    color: #blue;
-  }
-  .header-h1 h1::after {
+  .header-h1::after {
     content: "";
     position: absolute;
-    background: #6a1b9a;
-    height: .125rem;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    height: .375rem;
     left: 0;
     top: 50%;
     width: 100%;
     transform: translateY(-50%);
     z-index: -999;
   }
-  .header-h1-dark h1 {
-    background: #6a1b9a;
-    color: #fff;
+  .header-h1 h1 {
+    font-size: 1.5rem;
+    color: black;
+    display: inline-block;
+    background: #fff;
+    margin-bottom: 0;
+    padding-right: 1rem;
+    text-transform: uppercase;
   }
+  .header-h1-center {
+    text-align: center;
+  }
+  .header-h1-center h1 {
+    padding-left: 1rem;
+  }
+  .header-h1-right {
+    text-align: right;
+  }
+  .header-h1-right h1 {
+    padding-left: 1rem;
+    padding-right: 0;
+  }
+
 </style>
 
-
-<div class="header-h1">
+<div  align="center"class="header-h1 header-h1-center">
   <h1>Компьютерный магазин</h1>
 </div>
 
-<hr style="margin-top: 80px;">
+
+<div class="h1" align="right" >
+  <?php
+echo ($_COOKIE['employee']);
+?>
+</div>
+
+
+<!-- <hr style="margin-top: 80px;"> -->
   
+
+
 <!-- <div><img src="\config\qwer.png" style="width:200px% ; position : relative; background-position-x: center ;"></div> -->
 
   <!-- <hr style="margin-top: 80px;"> -->

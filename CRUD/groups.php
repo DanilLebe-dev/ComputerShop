@@ -17,6 +17,11 @@ require_once 'config/connect.php';
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 
 </head>
+<div class="h1" align="right" >
+  <?php
+echo ($_COOKIE['employee']);
+?>
+</div>
 <style>
     th, td {
         padding: 10px;
