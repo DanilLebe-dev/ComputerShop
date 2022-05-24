@@ -6,6 +6,10 @@
 
 require_once 'config/connect.php';
 
+$page = $_GET['page'];
+$count = 5; // количество записей на странице
+$limit_num = $page*$count; // число для sql запроса как значение для limit
+
 ?>
 
 <!doctype html>
@@ -109,7 +113,9 @@ echo ($_COOKIE['employee']);
                      * Делаем выборку строк из таблиц
                      */
 
-                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit 20;");
+
+
+                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit $limit_num, $count");
 
                     $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
                     $client =  mysqli_query($connect, "SELECT id, name From clients");
@@ -125,6 +131,7 @@ echo ($_COOKIE['employee']);
                     $employee = mysqli_fetch_all($employee);
                     $client = mysqli_fetch_all($client);
                     $products = mysqli_fetch_all($products);
+
 
                     /*
                      * Перебираем массив и рендерим HTML с данными из массива
@@ -166,9 +173,27 @@ echo ($_COOKIE['employee']);
         </div>
             
     </div>
+
+    <?php
+        $orders_col = mysqli_query($connect, "SELECT * From orders");
+        $orders_col = mysqli_fetch_all($orders_col);
+
+        $page_count = floor(count($orders_col) / $count);
+
+     ?>
+
+    <div align="center">
+        <?php for($p = 0; $p <= $page_count; $p++) :?>
+            <a href="?page=<?php echo $p;?>"><button class="btn btn-outline-success"><?php echo $p + 1; ?></button></a>
+        <?php endfor;?>
+
+    </div>
+
     <a href="neworder.php"><button  class="btn btn-outline-success" type="btn">Добавить заказ</button></a>
     <a href="index1.php"><button  class="btn btn-outline-success" type="btn">Назад</button></a>
 </body> 
+
+
 
 <script>
     function summ1()
