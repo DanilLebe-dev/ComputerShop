@@ -10,7 +10,7 @@ $page = $_GET['page'];
 $product_filter = $_GET['id_product'];
 $client_filter = $_GET['id_client'];
 $employee_filter = $_GET['id_employee'];
-$count = 10; // количество записей на странице
+$count = 6; // количество записей на странице
 $limit_num = $page*$count; // число для sql запроса как значение для limit
 ?>
 
@@ -91,7 +91,7 @@ echo ($_COOKIE['employee']);
 <body>
 
 
-      <hr style="margin-top: 80px;">
+      <hr style="margin-top: 60px;">
     
     <div style="flex-direction: column;" class='wrap'>
 
@@ -167,69 +167,74 @@ echo ($_COOKIE['employee']);
                     $products = mysqli_fetch_all($products);
 
                     ?>
-
-                    <form method="post" action="vendor/filter_orders.php">
-                        <p>Товар
-                        <select onchange="summ1();" class="form-select" name="product_filter" id="product_filter">
-                          <option value="" selected="selected"></option>
-                          <?php
-                             foreach($products as $val){
-                                if($_GET['id_product']==$val[0])
-                                {
-                                    echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                                }
-                                else
-                                {
-                                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                                }
-                             }
-                           ?>
-                        </select></p>
-
-
-                        <p>Клиент
-                        <select class="form-select" name="client_filter" id="client_filter">
-                          <option value="" selected="selected"></option>
-                          <?php
-                             foreach($client as $val){
-                                if($_GET['id_client']==$val[0])
-                                {
-                                    echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-
-                                }
-                                else
-                                {
-                                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                                }
-                             }
-                           ?>
-                        </select></p>
-
-                        <p>Сотрудник
-                        <select class="form-select" name="employee_filter" id="employee_filter">
-                          <option value="" selected="selected"></option>
-                          <?php
-                             foreach($employee as $val){
-                                if($_GET['id_employee']==$val[0])
-                                {
-                                    echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-
-                                }
-                                else
-                                {
-                                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                                }
-                             }
-
-                           ?>
-                        </select></p>
-
-                        <input type="submit" class="btn btn-outline-success" value="Применить">
+                            <div class="nav justify-content-end" style="" >
+                                <form method="post" action="vendor/filter_orders.php">
+                                    <p style="margin-right: 40px;">Товар
+                                    <select onchange="summ1();" class="form-select" name="product_filter" id="product_filter">
+                                      <option value="" selected="selected"></option>
+                                      <?php
+                                         foreach($products as $val){
+                                            if($_GET['id_product']==$val[0])
+                                            {
+                                                echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                            }
+                                            else
+                                            {
+                                                echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                            }
+                                         }
+                                       ?>
+                                    </select></p>
+                                <!-- </div> -->
 
 
-                    </form>
+                                <!-- <div style=""> -->
+                                    <p style="margin-right: 40px;">Клиент
+                                    <select class="form-select" name="client_filter" id="client_filter"style="margin-right: 65px;">
+                                      <option value="" selected="selected"></option>
+                                      <?php
+                                         foreach($client as $val){
+                                            if($_GET['id_client']==$val[0])
+                                            {
+                                                echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
 
+                                            }
+                                            else
+                                            {
+                                                echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                            }
+                                         }
+                                       ?>
+                                    </select></p>
+                                
+                                    
+                                    <p style="margin-right: 30px;">Сотрудник
+                                    <select class="form-select" name="employee_filter" id="employee_filter" style="margin-right: 65px;">
+                                      <option value="" selected="selected"></option>
+                                      <?php
+                                         foreach($employee as $val){
+                                            if($_GET['id_employee']==$val[0])
+                                            {
+                                                echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
 
+                                            }
+                                            else
+                                            {
+                                                echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                            }
+                                         }
+
+                                       ?>
+                                    </select></p>
+
+                                    <p style="margin-right: 20px;">
+                                    <input type="submit" class="btn btn-outline-success" value="Применить" style="height: 39px; margin-top: 23px">
+                                    </p>
+                                </div>
+
+                                </form>
+
+                            </div>
 
 
                 <?php
@@ -285,7 +290,7 @@ echo ($_COOKIE['employee']);
 
     <div align="center">
         <?php for($p = 0; $p <= $page_count; $p++) :?>
-            <a href="?id_client=<?=$_GET['id_client']?>&id_product=<?=$_GET['id_product']?>&?id_employee=<?=$_GET['id_employee']?>&page=<?php echo $p;?>"><button class="btn btn-outline-success"><?php echo $p + 1; ?></button></a>
+            <a href="?id_client=<?=$_GET['id_client']?>&page=<?php echo $p;?>"><button class="btn btn-outline-success"><?php echo $p + 1; ?></button></a>
         <?php endfor;?>
 
     </div>
