@@ -7,9 +7,11 @@
 require_once 'config/connect.php';
 
 $page = $_GET['page'];
-$count = 5; // количество записей на странице
+$product_filter = $_GET['id_product'];
+$client_filter = $_GET['id_client'];
+$employee_filter = $_GET['id_employee'];
+$count = 10; // количество записей на странице
 $limit_num = $page*$count; // число для sql запроса как значение для limit
-
 ?>
 
 <!doctype html>
@@ -109,13 +111,45 @@ echo ($_COOKIE['employee']);
 
                 <?php
 
+                    $sql_zapros = "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id";
+
+
+
+
+
+
+
                     /*
                      * Делаем выборку строк из таблиц
                      */
 
 
+                    if($product_filter)
+                    {
+                        $sql_zapros = $sql_zapros . " and products.id = $product_filter";
+                    }
 
-                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit $limit_num, $count");
+                    if($client_filter)
+                    {
+                        $sql_zapros = $sql_zapros . " and clients.id = $client_filter";
+                    }
+
+                    if($employee_filter)
+                    {
+                        $sql_zapros = $sql_zapros . " and employees.id = $employee_filter";
+                    }
+
+
+
+                    // else
+                    // {
+                    //     $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit $limit_num, $count");
+
+                    // }
+
+                    $sql_zapros = $sql_zapros . " order by orders.id desc";
+                    $orders = mysqli_query($connect, $sql_zapros . " limit $limit_num, $count");
+
 
                     $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
                     $client =  mysqli_query($connect, "SELECT id, name From clients");
@@ -132,6 +166,73 @@ echo ($_COOKIE['employee']);
                     $client = mysqli_fetch_all($client);
                     $products = mysqli_fetch_all($products);
 
+                    ?>
+
+                    <form method="post" action="vendor/filter_orders.php">
+                        <p>Товар
+                        <select onchange="summ1();" class="form-select" name="product_filter" id="product_filter">
+                          <option value="" selected="selected"></option>
+                          <?php
+                             foreach($products as $val){
+                                if($_GET['id_product']==$val[0])
+                                {
+                                    echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                }
+                                else
+                                {
+                                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                }
+                             }
+                           ?>
+                        </select></p>
+
+
+                        <p>Клиент
+                        <select class="form-select" name="client_filter" id="client_filter">
+                          <option value="" selected="selected"></option>
+                          <?php
+                             foreach($client as $val){
+                                if($_GET['id_client']==$val[0])
+                                {
+                                    echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+
+                                }
+                                else
+                                {
+                                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                }
+                             }
+                           ?>
+                        </select></p>
+
+                        <p>Сотрудник
+                        <select class="form-select" name="employee_filter" id="employee_filter">
+                          <option value="" selected="selected"></option>
+                          <?php
+                             foreach($employee as $val){
+                                if($_GET['id_employee']==$val[0])
+                                {
+                                    echo '<option selected value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+
+                                }
+                                else
+                                {
+                                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                                }
+                             }
+
+                           ?>
+                        </select></p>
+
+                        <input type="submit" class="btn btn-outline-success" value="Применить">
+
+
+                    </form>
+
+
+
+
+                <?php
 
                     /*
                      * Перебираем массив и рендерим HTML с данными из массива
@@ -175,16 +276,16 @@ echo ($_COOKIE['employee']);
     </div>
 
     <?php
-        $orders_col = mysqli_query($connect, "SELECT * From orders");
+        $orders_col = mysqli_query($connect, $sql_zapros);
         $orders_col = mysqli_fetch_all($orders_col);
 
-        $page_count = floor(count($orders_col) / $count);
+        $page_count = floor((count($orders_col)-1) / $count);
 
      ?>
 
     <div align="center">
         <?php for($p = 0; $p <= $page_count; $p++) :?>
-            <a href="?page=<?php echo $p;?>"><button class="btn btn-outline-success"><?php echo $p + 1; ?></button></a>
+            <a href="?id_client=<?=$_GET['id_client']?>&id_product=<?=$_GET['id_product']?>&?id_employee=<?=$_GET['id_employee']?>&page=<?php echo $p;?>"><button class="btn btn-outline-success"><?php echo $p + 1; ?></button></a>
         <?php endfor;?>
 
     </div>
@@ -194,7 +295,7 @@ echo ($_COOKIE['employee']);
 </body> 
 
 
-
+<!--
 <script>
     function summ1()
     {
@@ -211,6 +312,6 @@ echo ($_COOKIE['employee']);
         document.getElementById('summ').value = res;
     }
 
-</script>
+</script> -->
 
 </html>

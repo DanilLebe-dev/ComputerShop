@@ -6,6 +6,10 @@
 
 require_once 'config/connect.php';
 
+$page = $_GET['page'];
+$count = 10; // количество записей на странице
+$limit_num = $page*$count; // число для sql запроса как значение для limit
+
 ?>
 
 <!doctype html>
@@ -93,7 +97,11 @@ echo ($_COOKIE['employee']);
                                  * Делаем выборку всех строк из таблицы "clients"
                                  */
 
-                                $clients = mysqli_query($connect, "SELECT * FROM `clients` order by clients.id desc limit 20;");
+                                $sql_zapros = "SELECT id, name, phone_number, email FROM `clients` order by clients.id desc";
+
+
+                                $clients = mysqli_query($connect, $sql_zapros . " limit $limit_num, $count");
+
 
                                 /*
                                  * Преобразовываем полученные данные в нормальный массив
@@ -104,11 +112,9 @@ echo ($_COOKIE['employee']);
                                 /*
                                  * Перебираем массив и рендерим HTML с данными из массива
                                  * Ключ 0 - id
-                                 * Ключ 1 - surname
-                                 * Ключ 2 - name
-                                 * Ключ 3 - patronymic
-                                 * Ключ 4 - phone_number
-                                 * Ключ 5 - email
+                                 * Ключ 1 - name
+                                 * Ключ 2 - phone_number
+                                 * Ключ 3 - email
                                  */
 
                                 foreach ($clients as $client) {
@@ -127,6 +133,24 @@ echo ($_COOKIE['employee']);
                         </table>
                     </div>
                 </div>
+
+                <?php
+                    $orders_col = mysqli_query($connect, $sql_zapros);
+                    $orders_col = mysqli_fetch_all($orders_col);
+
+                    $page_count = floor((count($orders_col)-1) / $count);
+
+                 ?>
+
+
+                <div align="center">
+                    <?php for($p = 0; $p <= $page_count; $p++) :?>
+                        <a href="?id_client=<?=$_GET['id_client']?>&page=<?php echo $p;?>"><button class="btn btn-outline-success"><?php echo $p + 1; ?></button></a>
+                    <?php endfor;?>
+
+                </div>
+
+
                     <a href="newclient.php"><button  class="btn btn-outline-success" type="btn">Добавить Клиена</button></a>
                     <a href="index1.php"><button  class="btn btn-outline-success" type="btn">Назад</button></a>
         </body>

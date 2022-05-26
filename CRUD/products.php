@@ -6,6 +6,10 @@
 
 require_once 'config/connect.php';
 
+$page = $_GET['page'];
+$count = 10; // количество записей на странице
+$limit_num = $page*$count; // число для sql запроса как значение для limit
+
 ?>
 
 <!doctype html>
@@ -100,7 +104,9 @@ echo ($_COOKIE['employee']);
                      * Делаем выборку всех строк из таблицы "products"
                      */
 
-                    $products = mysqli_query($connect, "SELECT products.id, products.name, price, col, description, products_groups.name FROM products, products_groups WHERE products.id_product_group = products_groups.id order by products.id desc limit 20;");
+                    $sql_zapros = "SELECT products.id, products.name, price, col, description, products_groups.name FROM products, products_groups WHERE products.id_product_group = products_groups.id order by products.id desc";
+
+                    $products = mysqli_query($connect, $sql_zapros . " limit $limit_num, $count");
 
                     $group =  mysqli_query($connect, "SELECT id, name From products_groups");
 
@@ -156,9 +162,9 @@ echo ($_COOKIE['employee']);
                 <select class="form-select" class="form-select" name="group" id="country">
                   <option value="" selected="selected"></option>
                   <?php
-                     foreach($group as $val){
-                          echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                     }
+                     //foreach($group as $val){
+                     //     echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                     //}
                    ?>
                 </select></p>
 
