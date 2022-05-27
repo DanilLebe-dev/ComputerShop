@@ -6,7 +6,7 @@
 
 require_once 'config/connect.php';
 
-$page = $_GET['page'];
+$page = $_GET['page']; // получение номера страницы из адресной строки
 $count = 10; // количество записей на странице
 $limit_num = $page*$count; // число для sql запроса как значение для limit
 
@@ -22,20 +22,17 @@ $limit_num = $page*$count; // число для sql запроса как зна
 </head>
 
 <div class="h1" align="right" style="margin-right: 70px;">
-  <?php
-echo ($_COOKIE['employee']);
-?>
-<a href="index.php"><button  style="margin-left: 20px;"class="btn btn-danger" type="btn">Выйти</button></a>
+    <?php
+        echo ($_COOKIE['employee']); // отображение имени авторизованного сотрудника на шапке сайта
+    ?>
+    <a href="index.php"><button  style="margin-left: 20px;"class="btn btn-danger" type="btn">Выйти</button></a>
 </div>
 
 <style>
-
-     body
-        {
-        /*background: url(config/94lQI.png) no-repeat;*/
-        /*background-size: 100%;*/
+    body
+    {
         background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
-        }
+    }
 
     th, td {
         padding: 10px;
@@ -83,20 +80,16 @@ echo ($_COOKIE['employee']);
     {
         resize: none; /* Запрещаем изменять размер */
         height: 100px;
-
     }
-
-
 </style>
+
 <body>
-
-
-      <hr style="margin-top: 80px;">
-
+    <hr style="margin-top: 80px;">
     
     <div class='wrap'>
         <div class="border border-dark">
             <table class='table table-striped'>
+                <!-- поля таблицы и их названия-->
                 <tr>
                     <th>ID</th>
                     <th>Название</th>
@@ -107,79 +100,47 @@ echo ($_COOKIE['employee']);
                 </tr>
 
                 <?php
+                /*
+                 * Делаем выборку всех строк из таблицы "products"
+                 */
+                $sql_zapros = "SELECT products.id, products.name, price, col, description, products_groups.name FROM products, products_groups WHERE products.id_product_group = products_groups.id order by products.id desc";
 
-                    /*
-                     * Делаем выборку всех строк из таблицы "products"
-                     */
+                $products = mysqli_query($connect, $sql_zapros . " limit $limit_num, $count");
 
-                    $sql_zapros = "SELECT products.id, products.name, price, col, description, products_groups.name FROM products, products_groups WHERE products.id_product_group = products_groups.id order by products.id desc";
+                $group =  mysqli_query($connect, "SELECT id, name From products_groups");
 
-                    $products = mysqli_query($connect, $sql_zapros . " limit $limit_num, $count");
+                /*
+                 * Преобразовываем полученные данные в нормальный массив
+                 */
+                $products = mysqli_fetch_all($products);
+                $group = mysqli_fetch_all($group);
 
-                    $group =  mysqli_query($connect, "SELECT id, name From products_groups");
-
-                    /*
-                     * Преобразовываем полученные данные в нормальный массив
-                     */
-
-                    $products = mysqli_fetch_all($products);
-                    $group = mysqli_fetch_all($group);
-
-                    /*
-                     * Перебираем массив и рендерим HTML с данными из массива
-                     * Ключ 0 - id
-                     * Ключ 1 - name
-                     * Ключ 2 - price
-                     * Ключ 3 - col
-                     * Ключ 4 - description
-                     * Ключ 5 - id_product_group
-                     */
-
-                    foreach ($products as $product) {
-                        ?>
-                            <tr>
-                                <td><?= $product[0] ?></td>
-                                <td><?= $product[1] ?></td>
-                                <td><?= $product[2] ?></td>
-                                <td><?= $product[3] ?></td>
-                                <td><?= $product[4] ?></td>
-                                <td><?= $product[5] ?></td>
-                                <td><a href="update_products.php?id=<?= $product[0] ?>">Изменить</a></td>
-                                <td><a style="color: red;" href="vendor/delete_products.php?id=<?= $product[0] ?>">Удалить</a></td>
-                            </tr>
-                        <?php
+                /*
+                 * Перебираем массив и рендерим HTML с данными из массива
+                 * Ключ 0 - id
+                 * Ключ 1 - name
+                 * Ключ 2 - price
+                 * Ключ 3 - col
+                 * Ключ 4 - description
+                 * Ключ 5 - id_product_group
+                 */
+                foreach ($products as $product) {
+                    ?>
+                        <tr>
+                            <td><?= $product[0] ?></td>
+                            <td><?= $product[1] ?></td>
+                            <td><?= $product[2] ?></td>
+                            <td><?= $product[3] ?></td>
+                            <td><?= $product[4] ?></td>
+                            <td><?= $product[5] ?></td>
+                            <td><a href="update_products.php?id=<?= $product[0] ?>">Изменить</a></td>
+                            <td><a style="color: red;" href="vendor/delete_products.php?id=<?= $product[0] ?>">Удалить</a></td>
+                        </tr>
+                    <?php
                     }
                 ?>
             </table>
         </div>
-
-
-        <!-- <form action="vendor/create_products.php" method="post" class='space'>
-
-            <div class='row align-items-start'>
-                <big><h3>Добавить новый товар</h3>
-                <p>Название
-                <input class="form-control" type="text" name="name"></p>
-                <p>Цена
-                <input class="form-control" type="number" name="price"></p>
-                <p>Количество
-                <input class="form-control" type="number" name="col"></p>
-                <p>Описание
-                <textarea class="form-control textarea" name="description"></textarea></p>
-                <p>Товарная группа
-                <select class="form-select" class="form-select" name="group" id="country">
-                  <option value="" selected="selected"></option>
-                  <?php
-                     //foreach($group as $val){
-                     //     echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                     //}
-                   ?>
-                </select></p>
-
-                <button class="btn btn-success" type="submit">Добавить товар</button>
-                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/index1.php'">Назад</button>
-            </div>
-        </form> -->
     </div>
     <a href="newproducts.php"><button  class="btn btn-outline-success" type="btn">Добавить товар</button></a>
     <a href="index1.php"><button  class="btn btn-outline-success" type="btn">Назад</button></a>

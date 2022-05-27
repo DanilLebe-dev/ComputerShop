@@ -1,37 +1,37 @@
 <?php
 
-    /*
-     * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
-     */
+/*
+ * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
+ */
 
-    require_once 'config/connect.php';
+require_once 'config/connect.php';
 
-    /*
-     * Получаем ID продукта из адресной строки - /orders.php?id=1
-     */
+/*
+ * Получаем ID продукта из адресной строки - /orders.php?id=1
+ */
 
-    $order_id = $_GET['id'];
+$order_id = $_GET['id'];
 
-    /*
-     * Делаем выборку строки с полученным ID выше
-     */
+/*
+ * Делаем выборку строки с полученным ID выше
+ */
 
-    $order = mysqli_query($connect, "SELECT orders.id, products.name as product_name, products.description, summ, orders.col, date_order, clients.name as client_name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id and orders.id = '$order_id'");
+$order = mysqli_query($connect, "SELECT orders.id, products.name as product_name, products.description, summ, orders.col, date_order, clients.name as client_name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id and orders.id = '$order_id'");
 
-    $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
-    $client =  mysqli_query($connect, "SELECT id, name From clients");
-    $products =  mysqli_query($connect, "SELECT id, name, price, col From products");
+$employee =  mysqli_query($connect, "SELECT id, full_name From employees");
+$client =  mysqli_query($connect, "SELECT id, name From clients");
+$products =  mysqli_query($connect, "SELECT id, name, price, col From products");
 
 
-    /*
-     * Преобразовывем полученные данные в нормальный массив
-     * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
-     */
+/*
+ * Преобразовывем полученные данные в нормальный массив
+ * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
+ */
 
-    $order = mysqli_fetch_assoc($order);
-    $employee = mysqli_fetch_all($employee);
-    $client = mysqli_fetch_all($client);
-    $products = mysqli_fetch_all($products);
+$order = mysqli_fetch_assoc($order);
+$employee = mysqli_fetch_all($employee);
+$client = mysqli_fetch_all($client);
+$products = mysqli_fetch_all($products);
 ?>
 
 <!doctype html>

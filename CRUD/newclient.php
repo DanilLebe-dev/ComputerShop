@@ -20,35 +20,30 @@ require_once 'config/connect.php';
     </head>
 
 
-        <body>
+<body>
 
-            <style>
-             body
-                {
-                /*background: url(config/94lQI.png) no-repeat;*/
-                /*background-size: 100%;*/
-                background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
-                }
-            </style>
+    <style>
+    body
+        {
+            background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
+        }
+    </style>
 
 
-        <form action="vendor/create_clients.php" method="post">
+    <form action="vendor/create_clients.php" method="post">
+        <div style="text-align: center; margin-left: 70%;"class='row align-items-start'>
+            <big><h3>Добавить нового клиента</h3>
+            <p>Имя<br>
+            <input class="form-control" type="text" name="name"></p>
+            <p>Номер телефона<br>
+            <input class="form-control" type="number" name="phone_number"></p>
+            <p>Email<br>
+            <input class="form-control" type="text" name="email"></p>
 
-            <div style="text-align: center; margin-left: 70%;"class='row align-items-start'>
-                <big><h3>Добавить нового клиента</h3>
-                <p>Имя<br>
-                <input class="form-control" type="text" name="name"></p>
-                <p>Номер телефона<br>
-                <input class="form-control" type="number" name="phone_number"></p>
-                <p>Email<br>
-                <input class="form-control" type="text" name="email"></p>
+            <button class="btn btn-success" type="submit">Добавить клиента</button>
+            <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/clients.php'">Назад</button>
+        </div>
+    </form>
 
-
-                <button class="btn btn-success" type="submit">Добавить клиента</button>
-                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/clients.php'">Назад</button>
-            </div>
-        </form>
-
-        </body>
-
+</body>
 </html>

@@ -11,11 +11,12 @@ $login = filter_var(trim($_POST['login']),
 //подключаемся к бд
 	$mysql = new mysqli('localhost', 'root', 'root', 'shop');
 
-
+	// запрос на наличие введеного логина и пароля в таблице с сотрудниками
 	$result = $mysql->query("SELECT * FROM `employees` WHERE `login` = '$login' AND `password` = '$password'");
 	//fetch_assoc - функция поможет все выбранные данные из бд сконвертировать в  привычный массив
 	$employee = $result -> fetch_assoc();
 	
+	// Если пользователь не найден
 	if(!$employee)
 
 	{

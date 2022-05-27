@@ -20,38 +20,31 @@ require_once 'config/connect.php';
     </head>
 
 
-        <body>
+    <body>
 
-                <style>
-                 body
-                    {
-                    /*background: url(config/94lQI.png) no-repeat;*/
-                    /*background-size: 100%;*/
-                    background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
-                    }
+        <style>
+        body
+        {
+            background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
+        }
 
-                </style>
+        </style>
 
-                <form action="vendor/create_employees.php" method="post">
+        <form action="vendor/create_employees.php" method="post">
+            <div style="text-align: center; margin-left: 70%;" class='row align-items-start'>
+                <big><h3>Добавить нового сотрудника</h3>
+                <p>Имя
+                <input class="form-control" type="text" name="full_name"></p>
+                <p>Логин
+                <input class="form-control" type="text" name="login"></p>
+                <p>Пароль
+                <input class="form-control" type="text" name="password"></p>
+                <p>Email
+                <input class="form-control" type="text" name="email"></p>
 
-                    <div style="text-align: center; margin-left: 70%;" class='row align-items-start'>
-                        <big><h3>Добавить нового сотрудника</h3>
-                        <p>Имя
-                        <input class="form-control" type="text" name="full_name"></p>
-                        <p>Логин
-                        <input class="form-control" type="text" name="login"></p>
-                        <p>Пароль
-                        <input class="form-control" type="text" name="password"></p>
-                        <p>Email
-                        <input class="form-control" type="text" name="email"></p>
-
-
-
-                        <button class="btn btn-success" type="submit">Добавить сотрудника</button>
-                        <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/employees.php'">Назад</button>
-                    </div>
-                </form>
-        </body>
-
-
+                <button class="btn btn-success" type="submit">Добавить сотрудника</button>
+                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/employees.php'">Назад</button>
+            </div>
+        </form>
+    </body>
 </html>

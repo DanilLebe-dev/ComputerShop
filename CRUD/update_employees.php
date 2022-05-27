@@ -1,30 +1,29 @@
 <?php
+/*
+ * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
+ */
 
-    /*
-     * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
-     */
+require_once 'config/connect.php';
 
-    require_once 'config/connect.php';
+/*
+ * Получаем ID продукта из адресной строки - /employees.php?id=1
+ */
 
-    /*
-     * Получаем ID продукта из адресной строки - /employees.php?id=1
-     */
+$employees_id = $_GET['id'];
 
-    $employees_id = $_GET['id'];
-
-    /*
-     * Делаем выборку строки с полученным ID выше
-     */
+/*
+ * Делаем выборку строки с полученным ID выше
+ */
 
 
-    $employees = mysqli_query($connect, "SELECT id, full_name, login, password, email From employees WHERE employees.id = '$employees_id'");
+$employees = mysqli_query($connect, "SELECT id, full_name, login, password, email From employees WHERE employees.id = '$employees_id'");
 
-    /*
-     * Преобразовывем полученные данные в нормальный массив
-     * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
-     */
+/*
+ * Преобразовывем полученные данные в нормальный массив
+ * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
+ */
 
-    $employees = mysqli_fetch_assoc($employees);
+$employees = mysqli_fetch_assoc($employees);
 ?>
 
 <!doctype html>
@@ -107,7 +106,6 @@
             <button class="btn btn-success" type="submit">Изменить</button>
             <button class="btn btn-success" type="button" onclick="window.history.back()">Назад</button>
         </form>
-
     </div>
 
 </body>

@@ -1,31 +1,30 @@
 <?php
+/*
+ * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
+ */
 
-    /*
-     * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
-     */
+require_once 'config/connect.php';
 
-    require_once 'config/connect.php';
+/*
+ * Получаем ID продукта из адресной строки - /clients.php?id=1
+ */
 
-    /*
-     * Получаем ID продукта из адресной строки - /clients.php?id=1
-     */
+$client_id = $_GET['id'];
 
-    $client_id = $_GET['id'];
-
-    /*
-     * Делаем выборку строки с полученным ID выше
-     */
-
-
-    $client = mysqli_query($connect, "SELECT id, name, phone_number, email FROM `clients` WHERE clients.id = '$client_id'");
+/*
+ * Делаем выборку строки с полученным ID выше
+ */
 
 
-    /*
-     * Преобразовывем полученные данные в нормальный массив
-     * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
-     */
+$client = mysqli_query($connect, "SELECT id, name, phone_number, email FROM `clients` WHERE clients.id = '$client_id'");
 
-    $client = mysqli_fetch_assoc($client);
+
+/*
+ * Преобразовывем полученные данные в нормальный массив
+ * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
+ */
+
+$client = mysqli_fetch_assoc($client);
 ?>
 
 <!doctype html>
@@ -89,7 +88,6 @@
 </style>
 
 <body>
-
     <div class=" space space3">
         <h3>Изменение информации о клиенте</h3>
         <form action="vendor/update_clients.php" method="post">

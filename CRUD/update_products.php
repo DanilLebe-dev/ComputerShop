@@ -1,32 +1,32 @@
 <?php
 
-    /*
-     * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
-     */
+/*
+ * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
+ */
 
-    require_once 'config/connect.php';
+require_once 'config/connect.php';
 
-    /*
-     * Получаем ID продукта из адресной строки - /products.php?id=1
-     */
+/*
+ * Получаем ID продукта из адресной строки - /products.php?id=1
+ */
 
-    $product_id = $_GET['id'];
+$product_id = $_GET['id'];
 
-    /*
-     * Делаем выборку строки с полученным ID выше
-     */
+/*
+ * Делаем выборку строки с полученным ID выше
+ */
 
-    $product = mysqli_query($connect, "SELECT products.id, products.name as product_name, price, col, description, products_groups.name as group_name From products, products_groups WHERE products.id_product_group = products_groups.id and products.id = '$product_id'");
+$product = mysqli_query($connect, "SELECT products.id, products.name as product_name, price, col, description, products_groups.name as group_name From products, products_groups WHERE products.id_product_group = products_groups.id and products.id = '$product_id'");
 
-    $group =  mysqli_query($connect, "SELECT id, name From products_groups");
+$group =  mysqli_query($connect, "SELECT id, name From products_groups");
 
-    /*
-     * Преобразовывем полученные данные в нормальный массив
-     * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
-     */
+/*
+ * Преобразовывем полученные данные в нормальный массив
+ * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
+ */
 
-    $product = mysqli_fetch_assoc($product);
-    $group = mysqli_fetch_all($group);
+$product = mysqli_fetch_assoc($product);
+$group = mysqli_fetch_all($group);
 ?>
 
 <!doctype html>

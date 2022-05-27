@@ -1,31 +1,29 @@
 <?php
+/*
+ * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
+ */
 
-    /*
-     * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
-     */
+require_once 'config/connect.php';
 
-    require_once 'config/connect.php';
+/*
+ * Получаем ID продукта из адресной строки - /products_groups.php?id=1
+ */
 
-    /*
-     * Получаем ID продукта из адресной строки - /products_groups.php?id=1
-     */
+$group_id = $_GET['id'];
 
-    $group_id = $_GET['id'];
+/*
+ * Делаем выборку строки с полученным ID выше
+ */
 
-    /*
-     * Делаем выборку строки с полученным ID выше
-     */
-
-    $group = mysqli_query($connect, "SELECT id, name From products_groups WHERE products_groups.id = '$group_id'");
+$group = mysqli_query($connect, "SELECT id, name From products_groups WHERE products_groups.id = '$group_id'");
 
 
-    /*
-     * Преобразовывем полученные данные в нормальный массив
-     * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
-     */
+/*
+ * Преобразовывем полученные данные в нормальный массив
+ * Используя функцию mysqli_fetch_assoc массив будет иметь ключи равные названиям столбцов в таблице
+ */
 
-    $group = mysqli_fetch_assoc($group);
-
+$group = mysqli_fetch_assoc($group);
 ?>
 
 <!doctype html>

@@ -19,97 +19,99 @@ require_once 'config/connect.php';
 </head>
 <body>
 
+<style>
+    body
+    {
+        background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
+    }
 
-                    <style>
-                     body
-                        {
-                        /*background: url(config/94lQI.png) no-repeat;*/
-                        /*background-size: 100%;*/
-                        background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
-                        }
+</style>
 
-                    </style>
+<?php
 
-                   <?php
+/*
+ * Делаем выборку строк из таблиц
+ */
 
-                    /*
-                     * Делаем выборку строк из таблиц
-                     */
+$orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit 20;");
 
-                    $orders = mysqli_query($connect, "SELECT orders.id, products.name, products.description, summ, orders.col, date_order, clients.name, orders.phone_number, employees.full_name From orders, products, clients, employees WHERE orders.id_product = products.id and orders.id_client = clients.id and orders.id_employee = employees.id order by orders.id desc limit 20;");
-
-                    $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
-                    $client =  mysqli_query($connect, "SELECT id, name From clients");
-                    $products =  mysqli_query($connect, "SELECT id, name, price, col From products");
+$employee =  mysqli_query($connect, "SELECT id, full_name From employees");
+$client =  mysqli_query($connect, "SELECT id, name From clients");
+$products =  mysqli_query($connect, "SELECT id, name, price, col From products");
 
 
 
-                    /*
-                     * Преобразовываем полученные данные в нормальный массив
-                     */
+/*
+ * Преобразовываем полученные данные в нормальный массив
+ */
 
-                    $orders = mysqli_fetch_all($orders);
-                    $employee = mysqli_fetch_all($employee);
-                    $client = mysqli_fetch_all($client);
-                    $products = mysqli_fetch_all($products);
-                    ?>
+$orders = mysqli_fetch_all($orders);
+$employee = mysqli_fetch_all($employee);
+$client = mysqli_fetch_all($client);
+$products = mysqli_fetch_all($products);
+?>
 	
 
-                     <form action="vendor/create_orders.php" method="post">
+<form action="vendor/create_orders.php" method="post">
 
     <div style="text-align: center; margin-left: 70%;" class='row align-items-start'>
-                <big><h3>Добавить новый заказ</h3>
-                <p>Товар
-                <select onchange="summ1();" class="form-select" name="product" id="product">
-                  <option value="" selected="selected"></option>
-                  <?php
-                     foreach($products as $val){
-                          echo '<option value='. $val[0] .' ' . $selected . ' >'. $val[1] . ' ($' . ($val[2]) . ')' . '</option>';
-                     }
-                   ?>
-                </select></p>
+        <big><h3>Добавить новый заказ</h3>
+        <p>Товар
+        <select onchange="summ1();" class="form-select" name="product" id="product">
+            <option value="" selected="selected"></option>
+            <?php
+                foreach($products as $val){
+                    echo '<option value='. $val[0] .' ' . $selected . ' >'. $val[1] . ' ($' . ($val[2]) . ')' . '</option>';
+                }
+            ?>
+        </select></p>
 
 
-                <p>Описание
-                <textarea name="description" class="form-control textarea"></textarea></p>
+        <p>Описание
+        <textarea name="description" class="form-control textarea"></textarea></p>
 
-                <p>Сумма
-                <input class="form-control" type="number" name="summ" id="summ"></p>
-                <p>Количество
-                <input onchange="summ1();" class="form-control" type="number" name="col" value=1 id="col"></p>
-                <p>Дата заказа
-                <input class="form-control" type="date" name="date_order" value="<?php echo date('Y-m-d'); ?>" /></p>
-                <p>Клиент
-                <select class="form-select" name="client" id="country">
-                  <option value="" selected="selected"></option>
-                  <?php
-                     foreach($client as $val){
+        <p>Сумма
+        <input class="form-control" type="number" name="summ" id="summ"></p>
 
-                          echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                     }
-                   ?>
-                </select></p>
-                <p>Номер телефона
-                <input class="form-control" type="number" name="phone_number"></p>
+        <p>Количество
+        <input onchange="summ1();" class="form-control" type="number" name="col" value=1 id="col"></p>
 
-                <p>Сотрудник
-                <select class="form-select" name="employee" id="country">
-                  <option value="" selected="selected"></option>
-                  <?php
-                     foreach($employee as $val){
-                          echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
-                     }
+        <p>Дата заказа
+        <input class="form-control" type="date" name="date_order" value="<?php echo date('Y-m-d'); ?>" /></p>
 
-                   ?>
-                </select></p>
+        <p>Клиент
+        <select class="form-select" name="client" id="country">
+            <option value="" selected="selected"></option>
+            <?php
+                foreach($client as $val){
+                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                }
+            ?>
+        </select></p>
 
-                <button class="btn btn-success" type="submit">Добавить заказ</button>
-                <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/orders.php'">Назад</button>
+        <p>Номер телефона
+        <input class="form-control" type="number" name="phone_number"></p>
 
-            </div>
-            </form>
+        <p>Сотрудник
+        <select class="form-select" name="employee" id="country">
+            <option value="" selected="selected"></option>
+            <?php
+                foreach($employee as $val){
+                    echo '<option value="'. $val[0] .'" ' . $selected . ' >'. $val[1] .'</option>';
+                }
+
+            ?>
+        </select></p>
+
+        <button class="btn btn-success" type="submit">Добавить заказ</button>
+        <button class="btn btn-success" type="button" onclick="location.href='http://crud:8080/orders.php'">Назад</button>
+
+    </div>
+</form>
 </body>
+
 <script>
+    // считает сумму заказа из цены товара умноженного на количество
     function summ1()
     {
         product = document.getElementById('product');
@@ -124,7 +126,6 @@ require_once 'config/connect.php';
 
         document.getElementById('summ').value = res;
     }
-
 </script>
 
 </html>

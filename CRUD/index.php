@@ -29,25 +29,23 @@ $_SESSION['pog']='Авторизуйтесь :)';
 	<div class="container mt-4">
 		<div class="row">
 			<div class="col">
-				<div class="col">
-					<h1 style="margin-right: 150px;">Авторизоваться</h1>
-						<form action="auth.php" method="post">
-						<input type="text" class="form-control" name="login" id="login" placeholder="Введите логин"> <br>
-						<input type="password" class="form-control" name="password" id="password" placeholder="Введите пароль"> <br>
-						<button class="btn btn-success" type="submit">Авторизоваться</button>
-						<p><?php $res ?></p>
-					</form>
-				
+				<h1 style="margin-right: 150px;">Авторизоваться</h1>
+					<form action="auth.php" method="post" name="auth">
+					<input type="text" class="form-control" name="login" id="login" onkeyup="fieldFilled()" placeholder="Введите логин"> <br>
+					<input type="password" class="form-control" name="password" id="password" onkeyup="fieldFilled()" placeholder="Введите пароль"> <br>
+					<button class="btn btn-success" type="submit" id="btn" disabled>Авторизоваться</button>
+					<p><?php $res ?></p>
+				</form>
 
-					<p style="margin-right: 150px;">
-						У вас нет аккаунта? - <a href="registration.php">Зарегистрируйтесь!</a>
-					</p>
-				</div>
-			</div>	
+
+				<p style="margin-right: 150px;">
+					У вас нет аккаунта? - <a href="registration.php">Зарегистрируйтесь!</a>
+				</p>
+			</div>
 		</div>
 	</div>
 	<p style="border: 2px solid ; border-radius: 15px; text-align: center; padding: 10px; font-weight: bold; width: 500px; margin:0 auto; height: 50px; margin-left: 690px;" class="border">
-		
+
 		<?php
 		if ($_SESSION['message'])
 		{
@@ -60,5 +58,23 @@ $_SESSION['pog']='Авторизуйтесь :)';
 		}
 		 ?>
 	</p>
+
+<script>
+	// проверка на заполненность полей логин и пароль и разблокировка кнопки авторизации если поля не пустые
+	function fieldFilled()
+    {
+        log = document.getElementById("login").value;
+        pass = document.getElementById("password").value;
+
+        if(log == "" | pass == "")
+        {
+            document.auth.btn.disabled = true;
+        }
+        else
+        {
+            document.auth.btn.disabled = false;
+        }
+    }
+</script>
 </body>
 </html>
