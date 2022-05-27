@@ -32,6 +32,14 @@ echo ($_COOKIE['employee']);
 
 <style>
 
+             body
+                {
+                /*background: url(config/94lQI.png) no-repeat;*/
+                /*background-size: 100%;*/
+                background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
+                }
+
+
     .sq
     {
         bottom: 200px;

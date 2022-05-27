@@ -29,6 +29,14 @@ echo ($_COOKIE['employee']);
 </div>
 
 <style>
+
+     body
+        {
+        /*background: url(config/94lQI.png) no-repeat;*/
+        /*background-size: 100%;*/
+        background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
+        }
+
     th, td {
         padding: 10px;
     }
@@ -173,7 +181,7 @@ echo ($_COOKIE['employee']);
             </div>
         </form> -->
     </div>
-    <a href="newproducts.php"><button  class="btn btn-outline-success" type="btn">Добавить заказ</button></a>
+    <a href="newproducts.php"><button  class="btn btn-outline-success" type="btn">Добавить товар</button></a>
     <a href="index1.php"><button  class="btn btn-outline-success" type="btn">Назад</button></a>
 </body>
 </html>

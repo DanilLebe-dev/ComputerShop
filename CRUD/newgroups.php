@@ -21,6 +21,17 @@ require_once 'config/connect.php';
 
 
         <body>
+
+            <style>
+             body
+                {
+                /*background: url(config/94lQI.png) no-repeat;*/
+                /*background-size: 100%;*/
+                background-image: linear-gradient( 90deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
+                }
+
+            </style>
+
             <form action="vendor/create_groups.php" method="post">
 
             <div style="text-align: center; margin-left: 70%" class='row align-items-start'>
