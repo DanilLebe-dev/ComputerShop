@@ -20,7 +20,7 @@
 
     $employee =  mysqli_query($connect, "SELECT id, full_name From employees");
     $client =  mysqli_query($connect, "SELECT id, name From clients");
-    $products =  mysqli_query($connect, "SELECT id, name From products");
+    $products =  mysqli_query($connect, "SELECT id, name, price, col From products");
 
 
     /*
@@ -101,29 +101,32 @@
             <input type="hidden" name="id" value="<?= $order['id'] ?>">
             <big><p>Товар
                     <!-- <input class="form-control" type="text" name="title"></p> -->
-                    <select class="form-select" name="product" id="country">
+                    <select onchange="summ1();" class="form-select" name="product" id="product">
                       <!-- <option value="" selected="selected"></option> -->
                       <?php
                          foreach($products as $val){
                             if ($order['product_name'] == $val[1])
                             {
-                                echo '<option value='. $val[0] .' ' . selected . ' >'. $val[1] .'</option>';
+                                echo '<option value='. $val[0] .' ' . selected . ' >'. $val[1] . ' ($' . ($val[2]) . ')' .'</option>';
 
                             }
                             else
                             {
-                                echo '<option value='. $val[0] .' ' . ' >'. $val[1] .'</option>';
+                                echo '<option value='. $val[0] .' ' . $selected . ' >'. $val[1] . ' ($' . ($val[2]) . ')' . '</option>';
                             }
                          }
                        ?>
 
                     </select></p>
+
+
+
             <p>Описание
             <textarea class="form-control textarea" name="description"><?= $order['description'] ?></textarea></p>
             <p>Сумма
-            <input class="form-control" type="number" name="summ" value="<?= $order['summ'] ?>"></p>
+            <input class="form-control" type="number" name="summ" id="summ" value="<?= $order['summ'] ?>"></p>
             <p>Количество
-            <input class="form-control" type="number" name="col" value="<?= $order['col'] ?>"></p>
+            <input onchange="summ1();" class="form-control" type="number" name="col" id="col" value="<?= $order['col'] ?>"></p>
             <p>Дата заказа
             <input class="form-control" type="date" name="date_order" value="<?= $order['date_order'] ?>"></p>
             <p>Клиент
@@ -170,6 +173,24 @@
         </form>
 
     </div>
+
+<script>
+    function summ1()
+    {
+        product = document.getElementById('product');
+        ans = product.options[product.selectedIndex].text;
+        price = ans.split(' ');
+        price1 = price[price.length-1];
+        price_product = parseInt(price1.substring(2, price1.length-1));
+
+        col = parseInt(document.getElementById('col').value);
+
+        res = col * price_product;
+
+        document.getElementById('summ').value = res;
+    }
+
+</script>
 
 </body>
 </html>
